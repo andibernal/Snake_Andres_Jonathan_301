@@ -6,7 +6,7 @@
 
 
 package graficos;
-
+import personas.Panel;
 import javax.swing.JFrame;
 import juego.Snake.Ventana;
 import juego.snake.JuegoSnake;
@@ -50,7 +50,7 @@ public class Pantalla extends javax.swing.JFrame {
         });
         getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 110, 110, 40));
 
-        jButton2.setText("Nivel");
+        jButton2.setText("registro");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
@@ -81,6 +81,10 @@ public class Pantalla extends javax.swing.JFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
+        
+        
+        
+        
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
@@ -107,7 +111,7 @@ public class Pantalla extends javax.swing.JFrame {
      * @param args the command line arguments
      */
     
-    /*public static void main(String args[]) {
+    public static void main(String args[]) {
         
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
@@ -134,7 +138,7 @@ public class Pantalla extends javax.swing.JFrame {
                 new Pantalla().setVisible(true);
             }
         });
-    }*/
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;

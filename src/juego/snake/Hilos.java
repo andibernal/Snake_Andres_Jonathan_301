@@ -18,7 +18,7 @@ public class Hilos extends Thread{
 	 ArrayList<ArrayList<Cuadro>> Cuadrado= new ArrayList<ArrayList<Cuadro>>();
 	 Metodos CabezaSnake;
 	 int sizeSnake=3;
-	 long speed = 50;
+	 long speed = 100;
 	 public static int directionSnake ;
          private int score=0;
 	
@@ -79,6 +79,14 @@ public class Hilos extends Thread{
 		 if(eatingFood){
 			 System.out.println("comi");  // controla puntos
                          score++;
+                         if(score==3){
+                             JOptionPane.showMessageDialog(null, "segundo nivel");
+                             speed =50;
+                         }
+                         if(score==5){
+                             JOptionPane.showMessageDialog(null, "tercer nivel");
+                             speed=20;
+                         }
                          JOptionPane.showMessageDialog(null, score);
                     	 sizeSnake=sizeSnake+1;
 			 	foodPosition = getValAleaNotInSnake();
@@ -90,7 +98,7 @@ public class Hilos extends Thread{
 	 //Detiene el juego
 	 private void stopTheGame(){
 		 System.out.println("choque! \n");
-                 
+                 //this.dispose();
 		 while(true){
 			 Pausa();
 		 }
@@ -189,4 +197,8 @@ public class Hilos extends Thread{
 			 }
 		 }
 	 }
+
+    private void dispose() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }
