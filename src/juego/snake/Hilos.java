@@ -16,6 +16,8 @@ import javax.swing.JOptionPane;
  */
 public class Hilos extends Thread{
 	 ArrayList<ArrayList<Cuadro>> Cuadrado= new ArrayList<ArrayList<Cuadro>>();
+         ArrayList<ArrayList<Cuadro>> Cuadrado2= new ArrayList<ArrayList<Cuadro>>();
+         
 	 Metodos CabezaSnake;
 	 int sizeSnake=3;
 	 long speed = 100;
@@ -25,8 +27,12 @@ public class Hilos extends Thread{
          
 
 	 ArrayList<Metodos> positions = new ArrayList<Metodos>();
-	 Metodos foodPosition;
+	 Metodos posicionComida;
+         Metodos  obstaculo;
+         
 	 
+         
+         
 	 //Constructor de Hilos 
          Hilos(Metodos positionDepart){
 		//Obtener todos los hilos
@@ -39,8 +45,12 @@ public class Hilos extends Thread{
 		Metodos headPos = new Metodos(CabezaSnake.getX(),CabezaSnake.getY());
 		positions.add(headPos);
 		
-		foodPosition= new Metodos(Ventana.height-1,Ventana.width-1);
-		spawnFood(foodPosition);
+		posicionComida= new Metodos(Ventana.height-1,Ventana.width-1);
+		spawnFood(posicionComida);
+             Metodos foodPosition1 = new Metodos(Ventana.height-1,Ventana.width-1);
+		spawnFood(foodPosition1);
+                
+                
 
 	 }
 	 
@@ -69,13 +79,17 @@ public class Hilos extends Thread{
 		 Metodos posCritique = positions.get(positions.size()-1);
 		 for(int i = 0;i<=positions.size()-2;i++){
 			 boolean mordida = posCritique.getX()==positions.get(i).getX() && posCritique.getY()==positions.get(i).getY();
-			 if(mordida){
+			 
+                         if(mordida){
                              JOptionPane.showMessageDialog(null, "Has muerto");
 				stopTheGame();
 			 }
+                         
+                         
 		 }
 		 
-		 boolean eatingFood = posCritique.getX()==foodPosition.y && posCritique.getY()==foodPosition.x;
+                 
+		 boolean eatingFood = posCritique.getX()==posicionComida.y && posCritique.getY()==posicionComida.x;
 		 if(eatingFood){
 			 System.out.println("comi");  // controla puntos
                          score++;
@@ -87,11 +101,14 @@ public class Hilos extends Thread{
                              JOptionPane.showMessageDialog(null, "tercer nivel");
                              speed=20;
                          }
+                         
                          JOptionPane.showMessageDialog(null, score);
                     	 sizeSnake=sizeSnake+1;
-			 	foodPosition = getValAleaNotInSnake();
-
-			 spawnFood(foodPosition);	
+			 	posicionComida = getValAleaNotInSnake();
+                                
+			 spawnFood(posicionComida);	
+                         generarobstaculo(posicionComida);
+                         
 		 }
 	 }
 	 
@@ -112,7 +129,9 @@ public class Hilos extends Thread{
 	 private void spawnFood(Metodos foodPositionIn){
 		 	Cuadrado.get(foodPositionIn.x).get(foodPositionIn.y).Encender(1);
 	 }
-	 
+	 private void generarobstaculo(Metodos foodPositionIn){
+		 	Cuadrado.get(foodPositionIn.x-4).get(foodPositionIn.y-4).Encender(1);
+	 }
 	 //devolver una posición no ocupada por la serpiente
 	 private Metodos getValAleaNotInSnake(){
 		 Metodos p ;
@@ -129,6 +148,8 @@ public class Hilos extends Thread{
 		 }
 		 return p;
 	 }
+         
+         
 	 
 	 //Mueve la cabeza de la serpiente y actualiza las posiciones en la lista de arrays
 	 //1: derecha 2: izquierda 3: arriba 4: abajo 0: nada

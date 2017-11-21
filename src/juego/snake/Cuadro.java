@@ -23,7 +23,8 @@ public class Cuadro {
 		//Permite agregar el color a la lista de arreglos
 		C.add(Color.darkGray);//0
 		C.add(Color.BLUE);    //1
-		C.add(Color.white);   //2
+		C.add(Color.red);   //2
+                C.add(Color.black);
 		color=col;
 		cuadrado = new Panel(C.get(color));
 	}

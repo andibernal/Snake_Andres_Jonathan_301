@@ -11,6 +11,8 @@ import javax.swing.JFrame;
 import juego.Snake.Ventana;
 import juego.snake.JuegoSnake;
 
+import personas.Panel;
+import principal.Main;
 /**
  *
  * @author aboyb
@@ -81,7 +83,16 @@ public class Pantalla extends javax.swing.JFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
+
+         java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                
+                 new Main().setVisible(true);
+            }
+        });
+
         
+       
         
         
         
@@ -136,6 +147,7 @@ public class Pantalla extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new Pantalla().setVisible(true);
+                 
             }
         });
     }
