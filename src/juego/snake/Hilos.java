@@ -19,15 +19,15 @@ public class Hilos extends Thread{
          ArrayList<ArrayList<Cuadro>> Cuadrado2= new ArrayList<ArrayList<Cuadro>>();
          
 	 Metodos CabezaSnake;
-	 int sizeSnake=3;
-	 long speed = 100;
-	 public static int directionSnake ;
+         
+         public static int direcionSnake ;
+	 int tamañoSnake=3;
          private int score=0;
-	
+	 long velocidad = 100;
          
 
-	 ArrayList<Metodos> positions = new ArrayList<Metodos>();
 	 Metodos posicionComida;
+         ArrayList<Metodos> posiciones = new ArrayList<Metodos>();
          Metodos  obstaculo;
          
 	 
@@ -39,11 +39,11 @@ public class Hilos extends Thread{
 		Cuadrado=Ventana.Grid;
 		
 		CabezaSnake=new Metodos(positionDepart.x,positionDepart.y);
-		directionSnake = 1;
+		direcionSnake = 1;
 
 		//!!! Puntero !!!!
 		Metodos headPos = new Metodos(CabezaSnake.getX(),CabezaSnake.getY());
-		positions.add(headPos);
+		posiciones.add(headPos);
 		
 		posicionComida= new Metodos(Ventana.height-1,Ventana.width-1);
 		spawnFood(posicionComida);
@@ -57,7 +57,7 @@ public class Hilos extends Thread{
 	 //parte importante :
 	 public void run() {
 		 while(true){
-			 moveInterne(directionSnake);
+			 moveInterne(direcionSnake);
 			 checkCollision();
 			 moveExterne();
 			 deleteTail();
@@ -68,7 +68,7 @@ public class Hilos extends Thread{
 	 //retraso entre cada movimiento de la serpiente
 	 private void Pausa(){
 		 try {
-				sleep(speed);
+				sleep(velocidad);
 		 } catch (InterruptedException e) {
 				e.printStackTrace();
 		 }
@@ -76,9 +76,9 @@ public class Hilos extends Thread{
 	 
 	 //Comprobando si la serpiente se muerde o está comiendo
 	 private void checkCollision() {
-		 Metodos posCritique = positions.get(positions.size()-1);
-		 for(int i = 0;i<=positions.size()-2;i++){
-			 boolean mordida = posCritique.getX()==positions.get(i).getX() && posCritique.getY()==positions.get(i).getY();
+		 Metodos posCritique = posiciones.get(posiciones.size()-1);
+		 for(int i = 0;i<=posiciones.size()-2;i++){
+			 boolean mordida = posCritique.getX()==posiciones.get(i).getX() && posCritique.getY()==posiciones.get(i).getY();
 			 
                          if(mordida){
                              JOptionPane.showMessageDialog(null, "Has muerto");
@@ -95,15 +95,15 @@ public class Hilos extends Thread{
                          score++;
                          if(score==3){
                              JOptionPane.showMessageDialog(null, "segundo nivel");
-                             speed =50;
+                             velocidad =50;
                          }
                          if(score==5){
                              JOptionPane.showMessageDialog(null, "tercer nivel");
-                             speed=20;
+                             velocidad=20;
                          }
                          
                          JOptionPane.showMessageDialog(null, score);
-                    	 sizeSnake=sizeSnake+1;
+                    	 tamañoSnake=tamañoSnake+1;
 			 	posicionComida = getValAleaNotInSnake();
                                 
 			 spawnFood(posicionComida);	
@@ -138,8 +138,8 @@ public class Hilos extends Thread{
 		 int ranX= 0 + (int)(Math.random()*19); 
 		 int ranY= 0 + (int)(Math.random()*19); 
 		 p=new Metodos(ranX,ranY);
-		 for(int i = 0;i<=positions.size()-1;i++){
-			 if(p.getY()==positions.get(i).getX() && p.getX()==positions.get(i).getY()){
+		 for(int i = 0;i<=posiciones.size()-1;i++){
+			 if(p.getY()==posiciones.get(i).getX() && p.getX()==posiciones.get(i).getY()){
 				 ranX= 0 + (int)(Math.random()*19); 
 				 ranY= 0 + (int)(Math.random()*19); 
 				 p=new Metodos(ranX,ranY);
@@ -157,7 +157,7 @@ public class Hilos extends Thread{
 		 switch(dir){
 		 	case 4:
 				 CabezaSnake.ChangeData(CabezaSnake.x,(CabezaSnake.y+1)%20);
-				 positions.add(new Metodos(CabezaSnake.x,CabezaSnake.y));
+				 posiciones.add(new Metodos(CabezaSnake.x,CabezaSnake.y));
 		 		break;
 		 	case 3:
 		 		if(CabezaSnake.y-1<0){
@@ -166,7 +166,7 @@ public class Hilos extends Thread{
 		 		else{
 				 CabezaSnake.ChangeData(CabezaSnake.x,Math.abs(CabezaSnake.y-1)%20);
 		 		}
-				 positions.add(new Metodos(CabezaSnake.x,CabezaSnake.y));
+				 posiciones.add(new Metodos(CabezaSnake.x,CabezaSnake.y));
 		 		break;
 		 	case 2:
 		 		 if(CabezaSnake.x-1<0){
@@ -175,19 +175,19 @@ public class Hilos extends Thread{
 		 		 else{
 		 			 CabezaSnake.ChangeData(Math.abs(CabezaSnake.x-1)%20,CabezaSnake.y);
 		 		 } 
-		 		positions.add(new Metodos(CabezaSnake.x,CabezaSnake.y));
+		 		posiciones.add(new Metodos(CabezaSnake.x,CabezaSnake.y));
 
 		 		break;
 		 	case 1:
 				 CabezaSnake.ChangeData(Math.abs(CabezaSnake.x+1)%20,CabezaSnake.y);
-				 positions.add(new Metodos(CabezaSnake.x,CabezaSnake.y));
+				 posiciones.add(new Metodos(CabezaSnake.x,CabezaSnake.y));
 		 		 break;
 		 }
 	 }
 	 
 	 //Actualiza los cuadrados que debe ser
 	 private void moveExterne(){
-		 for(Metodos t : positions){
+		 for(Metodos t : posiciones){
 			 int y = t.getX();
 			 int x = t.getY();
 			 Cuadrado.get(x).get(y).Encender(0);
@@ -198,20 +198,20 @@ public class Hilos extends Thread{
 	 // Actualiza la cola de la serpiente, eliminando los datos en las posiciones de arrays
          // y actualizar la visualización de las cosas que se eliminan
 	 private void deleteTail(){
-		 int cmpt = sizeSnake;
-		 for(int i = positions.size()-1;i>=0;i--){
+		 int cmpt = tamañoSnake;
+		 for(int i = posiciones.size()-1;i>=0;i--){
 			 if(cmpt==0){
-				 Metodos t = positions.get(i);
+				 Metodos t = posiciones.get(i);
 				 Cuadrado.get(t.y).get(t.x).Encender(2);
 			 }
 			 else{
 				 cmpt--;
 			 }
 		 }
-		 cmpt = sizeSnake;
-		 for(int i = positions.size()-1;i>=0;i--){
+		 cmpt = tamañoSnake;
+		 for(int i = posiciones.size()-1;i>=0;i--){
 			 if(cmpt==0){
-				 positions.remove(i);
+				 posiciones.remove(i);
 			 }
 			 else{
 				 cmpt--;

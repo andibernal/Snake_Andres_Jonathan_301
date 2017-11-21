@@ -16,22 +16,22 @@ public class Teclado extends KeyAdapter{
  		    switch(e.getKeyCode()){
 		    	case 39:// ->Derecha
                                // si no es la dirección opuesta
-		    		if(Hilos.directionSnake!=2) 
-		    			Hilos.directionSnake=1;
+		    		if(Hilos.direcionSnake!=2) 
+		    			Hilos.direcionSnake=1;
 		    		break;
 		    	case 38:// ->parte superior
-				if(Hilos.directionSnake!=4) 
-					Hilos.directionSnake=3;
+				if(Hilos.direcionSnake!=4) 
+					Hilos.direcionSnake=3;
 		    		break;
 		    				
 		    	case 37:// -> Izquierda 
-				if(Hilos.directionSnake!=1)
-					Hilos.directionSnake=2;
+				if(Hilos.direcionSnake!=1)
+					Hilos.direcionSnake=2;
 		    		break;
 		    				
 		    	case 40:// -> boton
-				if(Hilos.directionSnake!=3)
-					Hilos.directionSnake=4;
+				if(Hilos.direcionSnake!=3)
+					Hilos.direcionSnake=4;
 		    		break;
 		    	
 		    	default: 	break;
